@@ -1,33 +1,47 @@
-'use client';
-import { PokemonCardList } from "@/components/PokemonCardList";
-import axios from "axios";
+"use client";
+import { Header } from "@/components/Header";
+import { Pokemon } from "@/components/Pokemon";
 
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-interface IPokemonProps {
+
+export interface IListProps {
   name:string;
   url:string;
 }
-export default function Home() {
-  const [pokemons, setPokemons] = useState<IPokemonProps[]>([])
 
-  useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon?limit=300").then((response) => {
-      setPokemons(response.data.results)
-      console.log(response.data.results)
+
+export default function Home() {
+  const [list, setList] = useState<IListProps[]>([])
+
+  useEffect(()=> {
+    axios.get("https://pokeapi.co/api/v2/pokemon").then( response => {
+
+
+      setList(response.data.results)
     })
   },[])
-
-
+  
   return (
     <div>
-      <h1>Listagem de Pokemons</h1>
-      {pokemons.map((pokemon, index) => (
-        <div key={index}>
-          <PokemonCardList url={pokemon.url} />
+      <Header/>
+
+        <div className="w-full px-5">
+          <div className="flex justify-start w-full py-7 border-b border-gray-300">
+          <h1 className="text-4xl font-semibold">Pokemons</h1>
+          </div>
+          {list.map((item, index) => (
+   
+              <Pokemon key={index} data={item}/>
+            
+          ))}
+     
+         
+          
         </div>
-      ))}
+
     </div>
   );
 }
