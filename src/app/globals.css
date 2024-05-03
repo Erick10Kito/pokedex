@@ -24,11 +24,16 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.bg-pokemon-background {
+  background-image: url('../assets/background-day-pokemon.png');
+
 }
